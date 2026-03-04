@@ -1,8 +1,11 @@
 import React from 'react'
+import HeroSection from "@/components/HeroSection";
 
 const Page = () => {
     return (
-        <div>Page</div>
+        <main className="wrapper container">
+            <HeroSection />
+        </main>
     )
 }
 export default Page

@@ -15,7 +15,7 @@ import VoiceSelector from './VoiceSelector';
 import LoadingOverlay from './LoadingOverlay';
 import {useAuth, useUser} from "@clerk/nextjs";
 import { toast } from 'sonner';
-// import {checkBookExists, createBook, saveBookSegments} from "@/lib/actions/book.actions";
+import { createBook} from "@/lib/actions/book.actions";
 import {useRouter} from "next/navigation";
 // import {parsePDFFile} from "@/lib/utils";
 import {upload} from "@vercel/blob/client";
@@ -51,7 +51,7 @@ const UploadForm = () => {
         // PostHog -> Track Book Uploads...
 
         try {
-            const existsCheck = await checkBookExists(data.title);
+            // const existsCheck = await checkBookExists(data.title);
 
             if(existsCheck.exists && existsCheck.book) {
                 toast.info("Book with same title already exists.");
@@ -63,7 +63,7 @@ const UploadForm = () => {
             const fileTitle = data.title.replace(/\s+/g, '-').toLowerCase();
             const pdfFile = data.pdfFile;
 
-            const parsedPDF = await parsePDFFile(pdfFile);
+            // const parsedPDF = await parsePDFFile(pdfFile);
 
             if(parsedPDF.content.length === 0) {
                 toast.error("Failed to parse PDF. Please try again with a different file.");
@@ -87,7 +87,7 @@ const UploadForm = () => {
                 });
                 coverUrl = uploadedCoverBlob.url;
             } else {
-                const response = await fetch(parsedPDF.cover)
+                // const response = await fetch(parsedPDF.cover)
                 const blob = await response.blob();
 
                 const uploadedCoverBlob = await upload(`${fileTitle}_cover.png`, blob, {
@@ -109,9 +109,9 @@ const UploadForm = () => {
                 fileSize: pdfFile.size,
             });
 
-            if(!book.success) {
-                toast.error(book.error as string || "Failed to create book");
-                if (book.isBillingError) {
+            if(!book?.success) {
+                toast.error(book?.error as string || "Failed to create book");
+                if (book?.isBillingError) {
                     router.push("/subscriptions");
                 }
                 return;

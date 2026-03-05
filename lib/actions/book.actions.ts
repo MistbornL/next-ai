@@ -5,8 +5,8 @@ import {connectToDatabase} from "@/database/mongoose";
 import {escapeRegex, generateSlug, serializeData} from "@/lib/utils";
 import mongoose from "mongoose";
 import {getUserPlan} from "@/lib/subscription.server";
-import Book from "@/database/mongoose/models/book.model";
-import BookSegment from "@/database/mongoose/models/book-segment.model";
+import Book from "@/database/models/book.model";
+import BookSegment from "@/database/models/book-segment.model";
 
 export const getAllBooks = async (search?: string) => {
     try {

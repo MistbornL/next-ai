@@ -28,6 +28,7 @@ export const getAllBooks = async (search?: string) => {
             .select("title author coverURL slug fileBlobKey coverBlobKey")
             .sort({ createdAt: -1 })
             .limit(30)
+            .setOptions({ maxTimeMS: 5000 })
             .lean();
 
         return {

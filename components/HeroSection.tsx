@@ -28,6 +28,7 @@ const HeroSection = () => {
                             width={400}
                             height={400}
                             className="object-contain"
+                            priority
                         />
                     </div>
 
@@ -39,6 +40,7 @@ const HeroSection = () => {
                             width={300}
                             height={300}
                             className="object-contain"
+                            priority
                         />
                     </div>
 

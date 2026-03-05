@@ -4,6 +4,8 @@ import BookCard from "@/components/BookCard";
 import {getAllBooks} from "@/lib/actions/book.actions";
 import Search from "@/components/Search";
 
+export const revalidate = 60; // Revalidate every 60 seconds
+
 const Page = async ({ searchParams }: { searchParams: Promise<{ query?: string }> }) => {
     const { query } = await searchParams;
 

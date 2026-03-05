@@ -95,10 +95,7 @@ export async function parsePDFFile(file: File) {
     const pdfjsLib = await import('pdfjs-dist');
 
     if (typeof window !== 'undefined') {
-      pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
-          'pdfjs-dist/build/pdf.worker.min.mjs',
-          import.meta.url,
-      ).toString();
+      pdfjsLib.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
     }
 
     // Read file as array buffer
@@ -121,7 +118,11 @@ export async function parsePDFFile(file: File) {
       throw new Error('Could not get canvas context');
     }
 
-
+    await firstPage.render({
+      canvasContext: context,
+      viewport: viewport,
+      canvas: canvas,
+    }).promise;
 
     // Convert canvas to data URL
     const coverDataURL = canvas.toDataURL('image/png');

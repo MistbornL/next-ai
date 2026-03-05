@@ -3,9 +3,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import {usePathname} from "next/navigation";
-import { Show,  SignInButton, UserButton, useUser } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignInButton, UserButton, useUser } from "@clerk/nextjs";
 import {cn} from "@/lib/utils";
-
 
 const navItems = [
     { label: "Library", href: "/" },
@@ -37,7 +36,10 @@ const Navbar = () => {
                     })}
 
                     <div className="flex gap-7.5 items-center">
-                        <Show fallback={<SignInButton mode="modal" />} when="signed-in">
+                        <SignedOut>
+                            <SignInButton mode="modal" />
+                        </SignedOut>
+                        <SignedIn>
                             <div className="nav-user-link">
                                 <UserButton />
                                 {user?.firstName && (
@@ -46,7 +48,7 @@ const Navbar = () => {
                                     </Link>
                                 )}
                             </div>
-                        </Show>
+                        </SignedIn>
                     </div>
                 </nav>
             </div>

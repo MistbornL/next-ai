@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Bookified
 
-## Getting Started
+Transform your books into interactive AI conversations. Upload PDFs, and chat with your books using voice.
 
-First, run the development server:
+## 🚀 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **PDF Book Upload**: Seamlessly upload and process your PDF books.
+- **AI-Powered Conversations**: Engage in intelligent dialogues with your books using advanced AI.
+- **Voice Sessions**: Experience hands-free interaction through voice chat powered by Vapi.
+- **Subscription Plans**: Flexible pricing tiers (Free, Standard, Pro) with Clerk Billing.
+- **Real-time Transcripts**: View live transcripts of your voice conversations.
+- **Responsive Design**: Optimized for a smooth experience across devices.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Tech Stack
 
-You can start editing the page by modifying `app/pageNavbarLoadingOverlay.tsx`. The page auto-updates as you edit the file.
+- **Framework**: [Next.js](https://nextjs.org/) (App Router)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Authentication & Billing**: [Clerk](https://clerk.com/)
+- **Database**: [MongoDB](https://www.mongodb.com/) (with Mongoose)
+- **Storage**: [Vercel Blob](https://vercel.com/storage/blob)
+- **AI/Voice**: [Vapi](https://vapi.ai/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Components**: [shadcn/ui](https://ui.shadcn.com/)
+- **PDF Parsing**: [pdfjs-dist](https://mozilla.github.io/pdf.js/)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🏁 Getting Started
 
-## Learn More
+### Prerequisites
 
-To learn more about Next.js, take a look at the following resources:
+- Node.js (Latest LTS version recommended)
+- A MongoDB database (e.g., MongoDB Atlas)
+- Accounts for Clerk, Vercel (Blob storage), and Vapi
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Installation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1.  **Clone the repository:**
+    ```bash
+    git clone <repository-url>
+    cd bookified
+    ```
 
-## Deploy on Vercel
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3.  **Set up environment variables:**
+    Create a `.env.local` file in the root directory and add the following:
+    ```env
+    # Clerk
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+    CLERK_SECRET_KEY=
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+    # MongoDB
+    MONGODB_URI=
+
+    # Vercel Blob
+    BLOB_READ_WRITE_TOKEN=
+
+    # Vapi
+    NEXT_PUBLIC_VAPI_PUBLIC_KEY=
+    VAPI_API_KEY=
+    VAPI_ASSISTANT_ID=
+
+    # Clerk Billing (Subscription Slugs)
+    # standard
+    # pro
+    ```
+
+4.  **Run the development server:**
+    ```bash
+    npm run dev
+    ```
+    Open [http://localhost:3000](http://localhost:3000) to see the result.
+
+## 💳 Subscription Plans
+
+- **Free**: 1 book, 5 sessions/month, 5 min/session, no session history.
+- **Standard**: 10 books, 100 sessions/month, 15 min/session.
+- **Pro**: 100 books, unlimited sessions, 60 min/session.
+
+## 📜 License
+
+Distributed under the MIT License. See `LICENSE` for more information.

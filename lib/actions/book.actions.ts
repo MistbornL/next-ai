@@ -265,7 +265,7 @@ export const deleteBook = async (id: string, fileBlobKey: string, coverBlobKey?:
         }
 
         await del(blobsToDelete, {
-            token: process.env.bookified_READ_WRITE_TOKEN
+            token: process.env.BLOB_READ_WRITE_TOKEN
         });
 
         const { revalidatePath } = await import("next/cache");

@@ -17,7 +17,7 @@ const Navbar = () => {
     const { user } = useUser();
 
     return (
-        <header className="w-full fixed z-50 bg-[#f8f4e9]">
+        <header className="w-full fixed top-0 left-0 z-50 bg-[#f8f4e9]">
             <div className="wrapper navbar-height py-4 flex justify-between items-center">
                 <Link href="/" className="flex gap-0.5 items-center">
                     <Image src="/assets/logo.png" alt="Bookfied" width={42} height={26} />

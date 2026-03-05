@@ -77,6 +77,7 @@ const UploadForm = () => {
             });
 
             let coverUrl: string;
+            let coverBlobKey: string;
 
             if(data.coverImage) {
                 const coverFile = data.coverImage;
@@ -86,6 +87,7 @@ const UploadForm = () => {
                     contentType: coverFile.type
                 });
                 coverUrl = uploadedCoverBlob.url;
+                coverBlobKey = uploadedCoverBlob.pathname;
             } else {
                 const response = await fetch(parsedPDF.cover)
                 const blob = await response.blob();
@@ -96,6 +98,7 @@ const UploadForm = () => {
                     contentType: 'image/png'
                 });
                 coverUrl = uploadedCoverBlob.url;
+                coverBlobKey = uploadedCoverBlob.pathname;
             }
 
             const book = await createBook({
@@ -106,6 +109,7 @@ const UploadForm = () => {
                 fileURL: uploadedPdfBlob.url,
                 fileBlobKey: uploadedPdfBlob.pathname,
                 coverURL: coverUrl,
+                coverBlobKey: coverBlobKey,
                 fileSize: pdfFile.size,
             });
 

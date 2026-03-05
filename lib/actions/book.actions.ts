@@ -12,32 +12,33 @@ export const getAllBooks = async (search?: string) => {
     try {
         await connectToDatabase();
 
-        let query = {};
+        let query: any = {};
 
         if (search) {
-            const escapedSearch = escapeRegex(search);
-            const regex = new RegExp(escapedSearch, 'i');
+            const escaped = escapeRegex(search);
             query = {
                 $or: [
-                    { title: { $regex: regex } },
-                    { author: { $regex: regex } },
-                ]
+                    { title: { $regex: escaped, $options: "i" } },
+                    { author: { $regex: escaped, $options: "i" } },
+                ],
             };
         }
 
-        const books = await Book.find(query).sort({ createdAt: -1 }).lean();
+        const books = await Book.find(query)
+            .select("title author coverURL slug fileBlobKey coverBlobKey")
+            .sort({ createdAt: -1 })
+            .limit(30)
+            .lean();
 
         return {
             success: true,
-            data: serializeData(books)
-        }
+            data: serializeData(books),
+        };
     } catch (e) {
-        console.error('Error connecting to database', e);
-        return {
-            success: false, error: e
-        }
+        console.error(e);
+        return { success: false, error: e };
     }
-}
+};
 
 export const checkBookExists = async (title: string) => {
     try {

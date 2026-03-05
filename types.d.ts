@@ -75,10 +75,13 @@ export interface TextSegment {
 }
 
 export interface BookCardProps {
+    id: string;
     title: string;
     author: string;
     coverURL: string;
     slug: string;
+    fileBlobKey: string;
+    coverBlobKey?: string;
 }
 
 export interface Messages {

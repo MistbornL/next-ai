@@ -228,3 +228,57 @@ export const searchBookSegments = async (bookId: string, query: string, limit: n
         };
     }
 };
+
+
+export const deleteBook = async (id: string, fileBlobKey: string, coverBlobKey?: string) => {
+    try {
+        await connectToDatabase();
+
+        const { auth } = await import("@clerk/nextjs/server");
+        const { userId } = await auth();
+
+        if (!userId) {
+            return { success: false, error: "Unauthorized" };
+        }
+
+        const book = await Book.findById(id).lean();
+
+        if (!book) {
+            return { success: false, error: "Book not found" };
+        }
+
+        if (book.clerkId !== userId) {
+            return { success: false, error: "Unauthorized: You don't own this book" };
+        }
+
+        // 1. Delete associated segments
+        await BookSegment.deleteMany({ bookId: id });
+
+        // 2. Delete book from database
+        await Book.findByIdAndDelete(id);
+
+        // 3. Delete files from Vercel Blob
+        const { del } = await import("@vercel/blob");
+        const blobsToDelete = [fileBlobKey];
+        if (coverBlobKey) {
+            blobsToDelete.push(coverBlobKey);
+        }
+
+        await del(blobsToDelete, {
+            token: process.env.bookified_READ_WRITE_TOKEN
+        });
+
+        const { revalidatePath } = await import("next/cache");
+        revalidatePath("/");
+
+        return {
+            success: true,
+            message: "Book deleted successfully"
+        }
+    } catch (e) {
+        console.error('Error deleting book', e);
+        return {
+            success: false, error: e
+        }
+    }
+}

@@ -832,7 +832,7 @@
   box-shadow: var(--shadow-soft-md) !important;
 }
 
-/* Subscription panel appear above pricing cards */
+/* Subscription panel appear above subscriptions cards */
 .cl-drawerRoot {
   z-index: 100 !important;
 }
@@ -967,22 +967,22 @@ button[data-variant='unstyled'] *,
 }
 
 /*!* Match the app's existing design system *!*/
-/*.clerk-pricing-container :deep(.cl-pricing-table) {*/
+/*.clerk-subscriptions-container :deep(.cl-subscriptions-table) {*/
 /*  font-family: var(--font-mona-sans), sans-serif;*/
 /*}*/
 
-/*.clerk-pricing-container :deep(.cl-pricing-table-header) {*/
+/*.clerk-subscriptions-container :deep(.cl-subscriptions-table-header) {*/
 /*  font-family: var(--font-ibm-plex-serif), serif;*/
 /*}*/
 
-/*.clerk-pricing-container :deep(.cl-pricing-plan-card) {*/
+/*.clerk-subscriptions-container :deep(.cl-subscriptions-plan-card) {*/
 /*  border: 2px solid var(--border);*/
 /*  border-radius: 12px;*/
 /*  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);*/
 /*  transition: transform 0.2s ease;*/
 /*}*/
 
-/*.clerk-pricing-container :deep(.cl-pricing-plan-card:hover) {*/
+/*.clerk-subscriptions-container :deep(.cl-subscriptions-plan-card:hover) {*/
 /*  transform: translate(-2px, -2px);*/
 /*  box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 1);*/
 /*}*/

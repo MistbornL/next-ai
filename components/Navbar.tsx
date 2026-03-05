@@ -3,8 +3,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import {usePathname} from "next/navigation";
-import { SignInButton, UserButton, useUser, Show } from "@clerk/nextjs";
+import { Show,  SignInButton, UserButton, useUser } from "@clerk/nextjs";
 import {cn} from "@/lib/utils";
+
 
 const navItems = [
     { label: "Library", href: "/" },
@@ -17,7 +18,7 @@ const Navbar = () => {
     const { user } = useUser();
 
     return (
-        <header className="w-full fixed top-0 left-0 z-50 bg-[#f8f4e9]">
+        <header className="w-full fixed z-50 bg-(--bg-primary)">
             <div className="wrapper navbar-height py-4 flex justify-between items-center">
                 <Link href="/" className="flex gap-0.5 items-center">
                     <Image src="/assets/logo.png" alt="Bookfied" width={42} height={26} />
@@ -36,10 +37,7 @@ const Navbar = () => {
                     })}
 
                     <div className="flex gap-7.5 items-center">
-                        <Show when="signed-out">
-                            <SignInButton mode="modal" />
-                        </Show>
-                        <Show when="signed-in">
+                        <Show fallback={<SignInButton mode="modal" />} when="signed-in">
                             <div className="nav-user-link">
                                 <UserButton />
                                 {user?.firstName && (

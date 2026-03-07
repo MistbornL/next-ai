@@ -10,52 +10,61 @@ import BookSegment from "@/database/models/book-segment.model";
 
 export const getAllBooks = async (search?: string) => {
     try {
-        const start = Date.now();
-        console.info('🚀 Connecting to database...');
-        await connectToDatabase();
-        const dbConnectedTime = Date.now() - start;
-        console.info(`✅ Database connected in ${dbConnectedTime}ms`);
-
-        const queryStart = Date.now();
-        let query: any = {};
-
-        if (search) {
-            const escaped = escapeRegex(search);
-            query = {
-                $or: [
-                    { title: { $regex: escaped, $options: "i" } },
-                    { author: { $regex: escaped, $options: "i" } },
-                ],
-            };
-        }
-
-        const books = await Book.find(query)
-            .select("title author coverURL slug fileBlobKey coverBlobKey")
-            .sort({ createdAt: -1 })
-            .limit(30)
-            .setOptions({ maxTimeMS: 5000 })
-            .lean();
-
-        const queryExecutedTime = Date.now() - queryStart;
-        console.info(`🔍 Query executed in ${queryExecutedTime}ms. Found ${books.length} books.`);
-
-        const serializeStart = Date.now();
-        const data = serializeData(books);
-        const serializationTime = Date.now() - serializeStart;
-        console.info(`📦 Serialization took ${serializationTime}ms`);
-
-        const totalServerActionTime = Date.now() - start;
-        console.info(`📊 getAllBooks server-side summary: DB: ${dbConnectedTime}ms, Query: ${queryExecutedTime}ms, Serialize: ${serializationTime}ms, Total: ${totalServerActionTime}ms`);
-
+        const books = await Book.find()
+        console.log(books)
+        const data = books
+        console.log(data)
         return {
             success: true,
             data,
-            timings: {
-                db: dbConnectedTime,
-                query: queryExecutedTime,
-                serialize: serializationTime,
-            }
-        };
+        }
+        // const start = Date.now();
+        // console.info('🚀 Connecting to database...');
+        // await connectToDatabase();
+        // const dbConnectedTime = Date.now() - start;
+        // console.info(`✅ Database connected in ${dbConnectedTime}ms`);
+        //
+        // const queryStart = Date.now();
+        // let query = {};
+        //
+        // if (search) {
+        //     const escaped = escapeRegex(search);
+        //     query = {
+        //         $or: [
+        //             { title: { $regex: escaped, $options: "i" } },
+        //             { author: { $regex: escaped, $options: "i" } },
+        //         ],
+        //     };
+        // }
+        //
+        // const books = await Book.find(query)
+        //     .select("title author coverURL slug fileBlobKey coverBlobKey")
+        //     .sort({ createdAt: -1 })
+        //     .limit(30)
+        //     .setOptions({ maxTimeMS: 5000 })
+        //     .lean()
+        //     .exec();
+        //
+        // const queryExecutedTime = Date.now() - queryStart;
+        // console.info(`🔍 Query executed in ${queryExecutedTime}ms. Found ${books.length} books.`);
+        //
+        // const serializeStart = Date.now();
+        // const data = serializeData(books);
+        // const serializationTime = Date.now() - serializeStart;
+        // console.info(`📦 Serialization took ${serializationTime}ms`);
+        //
+        // const totalServerActionTime = Date.now() - start;
+        // console.info(`📊 getAllBooks server-side summary: DB: ${dbConnectedTime}ms, Query: ${queryExecutedTime}ms, Serialize: ${serializationTime}ms, Total: ${totalServerActionTime}ms`);
+        //
+        // return {
+        //     success: true,
+        //     data,
+        //     timings: {
+        //         db: dbConnectedTime,
+        //         query: queryExecutedTime,
+        //         serialize: serializationTime,
+        //     }
+        // };
     } catch (e) {
         console.error(e);
         return { success: false, error: e };

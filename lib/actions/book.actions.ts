@@ -10,7 +10,9 @@ import BookSegment from "@/database/models/book-segment.model";
 
 export const getAllBooks = async (search?: string) => {
     try {
+        console.log('Connecting to database...');
         await connectToDatabase();
+        console.log('Database connected.');
 
         let query: any = {};
 
@@ -27,9 +29,9 @@ export const getAllBooks = async (search?: string) => {
         const books = await Book.find(query)
             .select("title author coverURL slug fileBlobKey coverBlobKey")
             .sort({ createdAt: -1 })
-            .limit(30)
-            .setOptions({ maxTimeMS: 5000 })
-            .lean();
+            // .limit(30)
+            // .setOptions({ maxTimeMS: 5000 })
+            // .lean();
 
         return {
             success: true,

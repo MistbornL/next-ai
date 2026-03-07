@@ -44,6 +44,11 @@ export const getAllBooks = async (search?: string) => {
         return {
             success: true,
             data,
+            timings: {
+                db: Date.now() - start,
+                query: Date.now() - queryStart,
+                serialize: Date.now() - serializeStart,
+            }
         };
     } catch (e) {
         console.error(e);

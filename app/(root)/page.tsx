@@ -3,6 +3,7 @@ import HeroSection from "@/components/HeroSection";
 import BookCard from "@/components/BookCard";
 import {getAllBooks} from "@/lib/actions/book.actions";
 import Search from "@/components/Search";
+import PerformanceLogger from "@/components/PerformanceLogger";
 
 const Page = async ({ searchParams }: { searchParams: Promise<{ query?: string }> }) => {
     const { query } = await searchParams;
@@ -11,6 +12,11 @@ const Page = async ({ searchParams }: { searchParams: Promise<{ query?: string }
 
     return (
         <main className="wrapper container">
+            <PerformanceLogger 
+                timings={bookResults.timings} 
+                success={bookResults.success} 
+                error={bookResults.error} 
+            />
             <HeroSection />
 
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-5 mb-10">

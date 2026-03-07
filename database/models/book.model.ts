@@ -3,9 +3,9 @@ import {IBook} from "@/types";
 
 const BookSchema = new Schema<IBook>({
     clerkId: { type: String, required: true },
-    title: { type: String, required: true },
+    title: { type: String, required: true, index: true },
     slug: { type: String, required: true, unique: true, lowercase: true, trim: true },
-    author: { type: String, required: true },
+    author: { type: String, required: true, index: true },
     persona: { type: String },
     fileURL: { type: String, required: true },
     fileBlobKey: { type: String, required: true },

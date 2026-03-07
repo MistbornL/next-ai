@@ -7,7 +7,8 @@ import Search from "@/components/Search";
 const Page = async ({ searchParams }: { searchParams: Promise<{ query?: string }> }) => {
     const { query } = await searchParams;
 
-    // const bookResults = await getAllBooks(query)
+    const bookResults = await getAllBooks
+    console.log(bookResults)
     // const books = bookResults.success ? bookResults.data ?? [] : []
 
     return (

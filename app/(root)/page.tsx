@@ -5,10 +5,10 @@ import {getAllBooks} from "@/lib/actions/book.actions";
 import Search from "@/components/Search";
 
 const Page = async ({ searchParams }: { searchParams: Promise<{ query?: string }> }) => {
-    const { query } = await searchParams;
-
-    const bookResults = await getAllBooks(query)
-    const books = bookResults.success ? bookResults.data ?? [] : []
+    // const { query } = await searchParams;
+    //
+    // const bookResults = await getAllBooks(query)
+    // const books = bookResults.success ? bookResults.data ?? [] : []
 
     return (
         <main className="wrapper container">
@@ -21,10 +21,9 @@ const Page = async ({ searchParams }: { searchParams: Promise<{ query?: string }
 
             <div className="library-books-grid">
 
-                {books.map((book) => (
-                    // @ts-ignore
-                    <BookCard key={book._id} title={book.title} author={book.author} coverURL={book.coverURL} slug={book.slug} />
-                ))}
+                {/*{books.map((book) => (*/}
+                {/*    <BookCard key={book._id} title={book.title} author={book.author} coverURL={book.coverURL} slug={book.slug} />*/}
+                {/*))}*/}
             </div>
         </main>
     )

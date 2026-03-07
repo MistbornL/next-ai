@@ -10,10 +10,12 @@ import BookSegment from "@/database/models/book-segment.model";
 
 export const getAllBooks = async (search?: string) => {
     try {
+        const start = Date.now();
         console.log('Connecting to database...');
         await connectToDatabase();
-        console.log('Database connected.');
+        console.log(`Database connected in ${Date.now() - start}ms`);
 
+        const queryStart = Date.now();
         let query: any = {};
 
         if (search) {
@@ -33,9 +35,15 @@ export const getAllBooks = async (search?: string) => {
             .setOptions({ maxTimeMS: 5000 })
             .lean();
 
+        console.log(`Query executed in ${Date.now() - queryStart}ms. Found ${books.length} books.`);
+
+        const serializeStart = Date.now();
+        const data = serializeData(books);
+        console.log(`Serialization took ${Date.now() - serializeStart}ms`);
+
         return {
             success: true,
-            data: serializeData(books),
+            data,
         };
     } catch (e) {
         console.error(e);

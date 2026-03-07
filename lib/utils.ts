@@ -8,8 +8,11 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-// Serialize Mongoose documents to plain JSON objects (strips ObjectId, Date, etc.)
-export const serializeData = <T>(data: T): T => JSON.parse(JSON.stringify(data));
+// Serialize Mongoose documents to plain JSON objects
+export const serializeData = <T>(data: T): T => {
+    if (!data) return data;
+    return JSON.parse(JSON.stringify(data));
+};
 
 // Auto generate slug
 export function generateSlug(text: string): string {

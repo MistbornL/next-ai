@@ -11,9 +11,10 @@ import BookSegment from "@/database/models/book-segment.model";
 export const getAllBooks = async (search?: string) => {
     try {
         const start = Date.now();
-        console.log('Connecting to database...');
+        console.info('🚀 Connecting to database...');
         await connectToDatabase();
-        console.log(`Database connected in ${Date.now() - start}ms`);
+        const dbConnectedTime = Date.now() - start;
+        console.info(`✅ Database connected in ${dbConnectedTime}ms`);
 
         const queryStart = Date.now();
         let query: any = {};
@@ -35,19 +36,24 @@ export const getAllBooks = async (search?: string) => {
             .setOptions({ maxTimeMS: 5000 })
             .lean();
 
-        console.log(`Query executed in ${Date.now() - queryStart}ms. Found ${books.length} books.`);
+        const queryExecutedTime = Date.now() - queryStart;
+        console.info(`🔍 Query executed in ${queryExecutedTime}ms. Found ${books.length} books.`);
 
         const serializeStart = Date.now();
         const data = serializeData(books);
-        console.log(`Serialization took ${Date.now() - serializeStart}ms`);
+        const serializationTime = Date.now() - serializeStart;
+        console.info(`📦 Serialization took ${serializationTime}ms`);
+
+        const totalServerActionTime = Date.now() - start;
+        console.info(`📊 getAllBooks server-side summary: DB: ${dbConnectedTime}ms, Query: ${queryExecutedTime}ms, Serialize: ${serializationTime}ms, Total: ${totalServerActionTime}ms`);
 
         return {
             success: true,
             data,
             timings: {
-                db: Date.now() - start,
-                query: Date.now() - queryStart,
-                serialize: Date.now() - serializeStart,
+                db: dbConnectedTime,
+                query: queryExecutedTime,
+                serialize: serializationTime,
             }
         };
     } catch (e) {
